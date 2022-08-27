@@ -14,11 +14,15 @@ protocol MainScreenVCProtocol: AnyObject {
 
 final class MainScreenVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var hotSalesCollectionView: UICollectionView!
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var locationButton: UIButton!
     
     private var presenter: MainScreenPresenterProtocol!
     private var categories = [CategoryCollectionViewModelProtocol]()
+    private var hotSales = [Product]()
+    private var bestseller = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +31,12 @@ final class MainScreenVC: UIViewController {
         categoryCollectionView.delegate = self
         
         searchBar.searchTextField.backgroundColor = .white
-        
+        hotSalesCollectionView.register(
+            UINib(
+                nibName: "HotSalesCollectionViewCell",
+                bundle: nil
+            ),
+            forCellWithReuseIdentifier: "hotSalesCellID")
         
         presenter.viewDidLoad()
         
@@ -47,16 +56,34 @@ extension MainScreenVC: MainScreenVCProtocol {
 
 extension MainScreenVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        categories.count
+        switch collectionView{
+        case hotSalesCollectionView:
+            return hotSales.count
+        case categoryCollectionView:
+            return categories.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
+        let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "categoryCellID",
             for: indexPath
-        ) as? CategoryCollectionViewCell else { return UICollectionViewCell()}
-
-        cell.viewModel = categories[indexPath.row]
+        )
+        
+        
+        if collectionView == categoryCollectionView  {
+            if let categoryCell = cell as? CategoryCollectionViewCell {
+                categoryCell.viewModel = categories[indexPath.row]
+            }
+        }
+        
+        if collectionView == hotSalesCollectionView  {
+            if let hotSaleCell = cell as? CategoryCollectionViewCell {
+               // hotSaleCell.viewModel = hotSales
+            }
+        }
         
         return cell
     }
