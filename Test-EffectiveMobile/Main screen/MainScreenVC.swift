@@ -9,6 +9,7 @@ import UIKit
 
 protocol MainScreenVCProtocol: AnyObject {
     func categoriesDidRecieve(_ categories: [CategoryCollectionViewModelProtocol])
+    func hotSalesProductsDidRecieve(_ hotSalesProducts: [Product])
     func setLocation(_ location: String)
 }
 
@@ -21,14 +22,21 @@ final class MainScreenVC: UIViewController {
     
     private var presenter: MainScreenPresenterProtocol!
     private var categories = [CategoryCollectionViewModelProtocol]()
-    private var hotSales = [Product]()
-    private var bestseller = [Product]()
+    private var hotSalesProducts = [Product]()
+    private var bestsellerProducts = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MainScreenPresenter(view: self)
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
+        categoryCollectionView.allowsSelection = true
+        categoryCollectionView.allowsMultipleSelection = false
+        
+        hotSalesCollectionView.dataSource = self
+        hotSalesCollectionView.delegate = self
+        hotSalesCollectionView.allowsMultipleSelection = false
+        hotSalesCollectionView.allowsSelection = false
         
         searchBar.searchTextField.backgroundColor = .white
         hotSalesCollectionView.register(
@@ -36,7 +44,8 @@ final class MainScreenVC: UIViewController {
                 nibName: "HotSalesCollectionViewCell",
                 bundle: nil
             ),
-            forCellWithReuseIdentifier: "hotSalesCellID")
+            forCellWithReuseIdentifier: "hotSalesCellID"
+        )
         
         presenter.viewDidLoad()
         
@@ -50,6 +59,11 @@ extension MainScreenVC: MainScreenVCProtocol {
         self.categories = categories
         categoryCollectionView.reloadData()
     }
+    
+    func hotSalesProductsDidRecieve(_ hotSalesProducts: [Product]) {
+        self.hotSalesProducts = hotSalesProducts
+        hotSalesCollectionView.reloadData()
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -58,7 +72,7 @@ extension MainScreenVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView{
         case hotSalesCollectionView:
-            return hotSales.count
+            return hotSalesProducts.count
         case categoryCollectionView:
             return categories.count
         default:
@@ -67,36 +81,50 @@ extension MainScreenVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "categoryCellID",
-            for: indexPath
-        )
-        
         
         if collectionView == categoryCollectionView  {
-            if let categoryCell = cell as? CategoryCollectionViewCell {
-                categoryCell.viewModel = categories[indexPath.row]
-            }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "categoryCellID",
+                for: indexPath
+            ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.viewModel = categories[indexPath.row]
+            return cell
         }
         
         if collectionView == hotSalesCollectionView  {
-            if let hotSaleCell = cell as? CategoryCollectionViewCell {
-               // hotSaleCell.viewModel = hotSales
-            }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "hotSalesCellID",
+                for: indexPath
+            ) as? HotSalesCollectionViewCell else { return UICollectionViewCell() }
+                
+            cell.viewModel = hotSalesProducts[indexPath.row]
+            return cell
         }
         
-        return cell
+        return UICollectionViewCell()
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension MainScreenVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.collectionCellDidTapped(at: indexPath)
+        if collectionView == categoryCollectionView  {
+            presenter.collectionCellDidTapped(at: indexPath)
+        }
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 80, height: 100)
+        switch collectionView{
+        case hotSalesCollectionView:
+            return CGSize(width: hotSalesCollectionView.frame.width, height: 182)
+        case categoryCollectionView:
+            return CGSize(width: 80, height: 100)
+        default:
+            return CGSize.zero
+        }   
     }
     
     func setLocation(_ location: String) {

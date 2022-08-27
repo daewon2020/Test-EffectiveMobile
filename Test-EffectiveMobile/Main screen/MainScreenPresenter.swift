@@ -15,8 +15,8 @@ protocol MainScreenPresenterProtocol: AnyObject {
 final class MainScreenPresenter: MainScreenPresenterProtocol {
     private unowned var view: MainScreenVCProtocol
     private var categories = [CategoryCollectionViewModelProtocol]()
-    private var hotSales = [Product]()
-    private var bestseller = [Product]()
+    private var hotSalesProducts = [Product]()
+    private var bestsellerProducts = [Product]()
     
     init(view: MainScreenVCProtocol) {
         self.view = view
@@ -30,6 +30,7 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
                 self.view.setLocation("Мы не знаем где ты (")
             }
         }
+        
         fetchCategoryData()
         fetchHotSalesData()
     }
@@ -51,9 +52,9 @@ extension MainScreenPresenter {
     
     private func fetchHotSalesData() {
         NetworkManager.shared.fetchProducts(with: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") { products in
-            self.bestseller = products.bestSeller
-            self.hotSales = products.homeStore
-            
+            self.bestsellerProducts = products.bestSeller
+            self.hotSalesProducts = products.homeStore
+            self.view.hotSalesProductsDidRecieve(self.hotSalesProducts)
         }
         
     }
