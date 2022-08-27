@@ -9,10 +9,13 @@ import UIKit
 
 protocol MainScreenVCProtocol: AnyObject {
     func categoriesDidRecieve(_ categories: [CategoryCollectionViewModelProtocol])
+    func setLocation(_ location: String)
 }
 
 final class MainScreenVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var locationButton: UIButton!
     
     private var presenter: MainScreenPresenterProtocol!
     private var categories = [CategoryCollectionViewModelProtocol]()
@@ -23,16 +26,11 @@ final class MainScreenVC: UIViewController {
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         
-        presenter.viewDidLoad()
-    }
-    
-    @IBAction func buttonTapped(_ sender: Any) {
-        categoryCollectionView.visibleCells.forEach { cell in
-            guard let categoryCell = cell as? CategoryCollectionViewCell else { return }
-            categoryCell.prepareForReuse()
-        }
+        searchBar.searchTextField.backgroundColor = .white
         
-        categoryCollectionView.reloadData()
+        
+        presenter.viewDidLoad()
+        
     }
 }
 
@@ -73,4 +71,14 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 80, height: 100)
     }
+    
+    func setLocation(_ location: String) {
+        locationButton.setTitle(location, for: .normal)
+    }
+}
+
+//MARK: - Private functions
+
+extension MainScreenVC {
+    
 }

@@ -21,6 +21,13 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
     }
     
     func viewDidLoad() {
+        LocationManager.shared.bindLocation { location in
+            if let location = location {
+                self.view.setLocation(location)
+            } else {
+                self.view.setLocation("Мы не знаем где ты (")
+            }
+        }
         fetchCategoryData()
     }
     
