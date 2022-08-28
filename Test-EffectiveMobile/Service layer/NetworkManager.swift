@@ -12,40 +12,41 @@ class NetworkManager {
     static var shared = NetworkManager()
     
     init() {}
+
+    func fetchImage(with url: String, comletion: @escaping (Data) -> Void) {
+        guard let url = URL(string: url) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else {
+                print("Fetch data error")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                comletion(data)
+            }
+        }.resume()
+    }
     
-    func fetchProducts(with url: String, comletion: @escaping (ProductModel) -> Void) {
+    func fetchData<T: Decodable>(with url: String, for model: T.Type, comletion: @escaping (T) -> Void) {
         guard let url = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
+                print("recieve data error: \(error?.localizedDescription ?? "")")
                 return
             }
-            
             do {
-                
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let products = try decoder.decode(ProductModel.self, from: data)
-                DispatchQueue.main.async {
-                    comletion(products)
-                }
-            } catch {
-                print("JSON error")
-            }
-        }.resume()
-    }
-        func fetchImage(with url: String, comletion: @escaping (Data) -> Void) {
-            guard let url = URL(string: url) else { return }
-            
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                guard let data = data else {
-                    print("Fetch data error")
-                    return
-                }
+                print(T.self)
+                print(try JSONSerialization.jsonObject(with: data))
+                let data = try JSONDecoder().decode(T.self, from: data)
                 
                 DispatchQueue.main.async {
                     comletion(data)
                 }
-            }.resume()
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }.resume()
     }
 }

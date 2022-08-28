@@ -51,7 +51,10 @@ extension MainScreenPresenter {
     }
     
     private func fetchHotSalesData() {
-        NetworkManager.shared.fetchProducts(with: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175") { products in
+        NetworkManager.shared.fetchData(
+            with: "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175",
+            for: ProductModel.self
+        ) { (products: ProductModel)  in
             self.bestsellerProducts = products.bestSeller
             self.hotSalesProducts = products.homeStore
             self.view.hotSalesProductsDidRecieve(self.hotSalesProducts)

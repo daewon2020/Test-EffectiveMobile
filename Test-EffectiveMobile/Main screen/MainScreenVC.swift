@@ -55,6 +55,13 @@ extension MainScreenVC: MainScreenVCProtocol {
         self.bestsellerProducts = bestsellersProducts
         bestsellersCollectionView.reloadData()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is ProductDetailsVC {
+            guard let productDetails = segue.destination as? ProductDetailsVC else { return }
+            productDetails.presenter = ProductDetailsPresenter(view: productDetails)
+        }
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -115,6 +122,10 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
         if collectionView == categoryCollectionView  {
             presenter.collectionCellDidTapped(at: indexPath)
         }
+        
+        if collectionView == bestsellersCollectionView  {
+            performSegue(withIdentifier: "productDetailID", sender: nil)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -152,7 +163,7 @@ extension MainScreenVC {
         bestsellersCollectionView.dataSource = self
         bestsellersCollectionView.delegate = self
         bestsellersCollectionView.allowsMultipleSelection = false
-        bestsellersCollectionView.allowsSelection = false
+        bestsellersCollectionView.allowsSelection = true
         
         
         
