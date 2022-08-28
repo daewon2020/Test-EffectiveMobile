@@ -15,11 +15,9 @@ class NetworkManager {
     
     func fetchProducts(with url: String, comletion: @escaping (ProductModel) -> Void) {
         guard let url = URL(string: url) else { return }
-        print(url)
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
-                print("Fetch data error")
                 return
             }
             
@@ -35,5 +33,19 @@ class NetworkManager {
                 print("JSON error")
             }
         }.resume()
+    }
+        func fetchImage(with url: String, comletion: @escaping (Data) -> Void) {
+            guard let url = URL(string: url) else { return }
+            
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                guard let data = data else {
+                    print("Fetch data error")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    comletion(data)
+                }
+            }.resume()
     }
 }

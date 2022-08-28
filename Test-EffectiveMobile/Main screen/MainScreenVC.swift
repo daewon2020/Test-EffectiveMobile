@@ -10,12 +10,14 @@ import UIKit
 protocol MainScreenVCProtocol: AnyObject {
     func categoriesDidRecieve(_ categories: [CategoryCollectionViewModelProtocol])
     func hotSalesProductsDidRecieve(_ hotSalesProducts: [Product])
+    func bestsellersProductsDidRecieve(_ hotSalesProducts: [Product])
     func setLocation(_ location: String)
 }
 
 final class MainScreenVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var hotSalesCollectionView: UICollectionView!
+    @IBOutlet weak var bestsellersCollectionView: UICollectionView!
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var locationButton: UIButton!
@@ -28,25 +30,9 @@ final class MainScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MainScreenPresenter(view: self)
-        categoryCollectionView.dataSource = self
-        categoryCollectionView.delegate = self
-        categoryCollectionView.allowsSelection = true
-        categoryCollectionView.allowsMultipleSelection = false
-        
-        hotSalesCollectionView.dataSource = self
-        hotSalesCollectionView.delegate = self
-        hotSalesCollectionView.allowsMultipleSelection = false
-        hotSalesCollectionView.allowsSelection = false
-        
         searchBar.searchTextField.backgroundColor = .white
-        hotSalesCollectionView.register(
-            UINib(
-                nibName: "HotSalesCollectionViewCell",
-                bundle: nil
-            ),
-            forCellWithReuseIdentifier: "hotSalesCellID"
-        )
         
+        setupCollectionViews()
         presenter.viewDidLoad()
         
     }
@@ -64,6 +50,11 @@ extension MainScreenVC: MainScreenVCProtocol {
         self.hotSalesProducts = hotSalesProducts
         hotSalesCollectionView.reloadData()
     }
+    
+    func bestsellersProductsDidRecieve(_ bestsellersProducts: [Product]) {
+        self.bestsellerProducts = bestsellersProducts
+        bestsellersCollectionView.reloadData()
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -75,6 +66,8 @@ extension MainScreenVC: UICollectionViewDataSource {
             return hotSalesProducts.count
         case categoryCollectionView:
             return categories.count
+        case bestsellersCollectionView:
+            return bestsellerProducts.count
         default:
             return 0
         }
@@ -102,6 +95,16 @@ extension MainScreenVC: UICollectionViewDataSource {
             return cell
         }
         
+        if collectionView == bestsellersCollectionView  {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "bestsellersCellID",
+                for: indexPath
+            ) as? BestsellersCollectionViewCell else { return UICollectionViewCell() }
+                
+            cell.viewModel = bestsellerProducts[indexPath.row]
+            return cell
+        }
+        
         return UICollectionViewCell()
     }
 }
@@ -114,10 +117,10 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView{
+        case bestsellersCollectionView:
+            return CGSize(width: bestsellersCollectionView.frame.width / 2 - 4, height: 227)
         case hotSalesCollectionView:
             return CGSize(width: hotSalesCollectionView.frame.width, height: 182)
         case categoryCollectionView:
@@ -135,5 +138,35 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
 //MARK: - Private functions
 
 extension MainScreenVC {
+    private func setupCollectionViews() {
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.allowsSelection = true
+        categoryCollectionView.allowsMultipleSelection = false
+        
+        hotSalesCollectionView.dataSource = self
+        hotSalesCollectionView.delegate = self
+        hotSalesCollectionView.allowsMultipleSelection = false
+        hotSalesCollectionView.allowsSelection = false
+        
+        bestsellersCollectionView.dataSource = self
+        bestsellersCollectionView.delegate = self
+        bestsellersCollectionView.allowsMultipleSelection = false
+        bestsellersCollectionView.allowsSelection = false
+        
+        
+        
+        hotSalesCollectionView.register(
+            UINib(nibName: "HotSalesCollectionViewCell",bundle: nil),
+            forCellWithReuseIdentifier: "hotSalesCellID"
+        )
+        bestsellersCollectionView.register(
+            UINib(nibName: "BestsellersCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "bestsellersCellID"
+        )
+        
+        
+        
+    }
     
 }

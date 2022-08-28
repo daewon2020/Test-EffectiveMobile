@@ -55,6 +55,7 @@ extension MainScreenPresenter {
             self.bestsellerProducts = products.bestSeller
             self.hotSalesProducts = products.homeStore
             self.view.hotSalesProductsDidRecieve(self.hotSalesProducts)
+            self.view.bestsellersProductsDidRecieve(self.bestsellerProducts)
         }
         
     }

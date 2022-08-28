@@ -21,11 +21,6 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     private func updateCell() {
         if let isNew = viewModel.isNew {
             isNewButton.isHidden = isNew
@@ -35,5 +30,9 @@ class HotSalesCollectionViewCell: UICollectionViewCell {
         image.layer.cornerRadius = 10
         titleLabel.text = viewModel.title
         subTitlelabel.text  = viewModel.subtitle
+        
+        ImageLoader.shared.getImageFromCache(for: viewModel.picture) { image in
+            self.image.image = image
+        }
     }
 }
