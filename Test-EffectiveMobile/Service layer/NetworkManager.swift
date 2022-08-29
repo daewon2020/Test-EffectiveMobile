@@ -37,8 +37,6 @@ class NetworkManager {
                 return
             }
             do {
-                print(T.self)
-                print(try JSONSerialization.jsonObject(with: data))
                 let data = try JSONDecoder().decode(T.self, from: data)
                 
                 DispatchQueue.main.async {

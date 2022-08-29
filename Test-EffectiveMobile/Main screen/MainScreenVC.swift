@@ -8,9 +8,9 @@
 import UIKit
 
 protocol MainScreenVCProtocol: AnyObject {
-    func categoriesDidRecieve(_ categories: [CategoryCollectionViewModelProtocol])
-    func hotSalesProductsDidRecieve(_ hotSalesProducts: [Product])
-    func bestsellersProductsDidRecieve(_ hotSalesProducts: [Product])
+    func reloadCategories()
+    func productsDidRecieve()
+
     func setLocation(_ location: String)
 }
 
@@ -23,9 +23,9 @@ final class MainScreenVC: UIViewController {
     @IBOutlet weak var locationButton: UIButton!
     
     private var presenter: MainScreenPresenterProtocol!
-    private var categories = [CategoryCollectionViewModelProtocol]()
-    private var hotSalesProducts = [Product]()
-    private var bestsellerProducts = [Product]()
+//    private var categories = [CategoryCollectionViewModelProtocol]()
+//    private var hotSalesProducts = [Product]()
+//    private var bestsellerProducts = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,18 +41,12 @@ final class MainScreenVC: UIViewController {
 //MARK: - MainScreenVCProtocol
 
 extension MainScreenVC: MainScreenVCProtocol {
-    func categoriesDidRecieve(_ categories: [CategoryCollectionViewModelProtocol]) {
-        self.categories = categories
+    func reloadCategories() {
         categoryCollectionView.reloadData()
     }
     
-    func hotSalesProductsDidRecieve(_ hotSalesProducts: [Product]) {
-        self.hotSalesProducts = hotSalesProducts
+    func productsDidRecieve() {
         hotSalesCollectionView.reloadData()
-    }
-    
-    func bestsellersProductsDidRecieve(_ bestsellersProducts: [Product]) {
-        self.bestsellerProducts = bestsellersProducts
         bestsellersCollectionView.reloadData()
     }
     
@@ -67,17 +61,8 @@ extension MainScreenVC: MainScreenVCProtocol {
 //MARK: - UICollectionViewDataSource
 
 extension MainScreenVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView{
-        case hotSalesCollectionView:
-            return hotSalesProducts.count
-        case categoryCollectionView:
-            return categories.count
-        case bestsellersCollectionView:
-            return bestsellerProducts.count
-        default:
-            return 0
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {        
+        presenter.productCount(for: collectionView.tag)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -88,7 +73,7 @@ extension MainScreenVC: UICollectionViewDataSource {
                 for: indexPath
             ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.viewModel = categories[indexPath.row]
+            cell.viewModel = presenter.categoryRequest(for: indexPath)
             return cell
         }
         
@@ -98,7 +83,7 @@ extension MainScreenVC: UICollectionViewDataSource {
                 for: indexPath
             ) as? HotSalesCollectionViewCell else { return UICollectionViewCell() }
                 
-            cell.viewModel = hotSalesProducts[indexPath.row]
+            cell.viewModel = presenter.productRequest(with: collectionView.tag, for: indexPath)
             return cell
         }
         
@@ -108,7 +93,7 @@ extension MainScreenVC: UICollectionViewDataSource {
                 for: indexPath
             ) as? BestsellersCollectionViewCell else { return UICollectionViewCell() }
                 
-            cell.viewModel = bestsellerProducts[indexPath.row]
+            cell.viewModel = presenter.productRequest(with: collectionView.tag, for: indexPath)
             return cell
         }
         

@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MainScreenPresenterProtocol: AnyObject {
     func viewDidLoad()
     func collectionCellDidTapped(at indexPath: IndexPath)
+    func categoryRequest(for indexPath: IndexPath) -> CategoryCollectionViewModelProtocol
+    func productCount(for collectionViewTag: Int) -> Int
+    func productRequest(with collectionViewTag: Int, for indexPath: IndexPath) -> Product?
 }
 
 final class MainScreenPresenter: MainScreenPresenterProtocol {
@@ -38,7 +42,28 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
     func collectionCellDidTapped(at indexPath: IndexPath)  {
         categories.forEach { $0.isSelected = false }
         categories[indexPath.row].isSelected = true
-        view.categoriesDidRecieve(categories)
+        view.reloadCategories()
+    }
+    
+    func categoryRequest(for indexPath: IndexPath) -> CategoryCollectionViewModelProtocol {
+        categories[indexPath.row]
+    }
+    
+    func productRequest(with collectionViewTag: Int, for indexPath: IndexPath) -> Product? {
+        switch collectionViewTag {
+        case 1: return hotSalesProducts[indexPath.row]
+        case 2: return bestsellerProducts[indexPath.row]
+        default: return nil
+        }
+    }
+    
+    func productCount(for collectionViewTag: Int) -> Int {
+        switch collectionViewTag {
+        case 0: return categories.count
+        case 1: return hotSalesProducts.count
+        case 2: return bestsellerProducts.count
+        default: return 0
+        }
     }
 }
 
@@ -47,7 +72,7 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
 extension MainScreenPresenter {
     private func fetchCategoryData() {
         categories = DataManager().getCategories()
-        view.categoriesDidRecieve(categories)
+        view.reloadCategories()
     }
     
     private func fetchHotSalesData() {
@@ -57,8 +82,7 @@ extension MainScreenPresenter {
         ) { (products: ProductModel)  in
             self.bestsellerProducts = products.bestSeller
             self.hotSalesProducts = products.homeStore
-            self.view.hotSalesProductsDidRecieve(self.hotSalesProducts)
-            self.view.bestsellersProductsDidRecieve(self.bestsellerProducts)
+            self.view.productsDidRecieve()
         }
         
     }
