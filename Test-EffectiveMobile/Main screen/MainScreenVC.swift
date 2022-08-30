@@ -23,9 +23,6 @@ final class MainScreenVC: UIViewController {
     @IBOutlet weak var locationButton: UIButton!
     
     private var presenter: MainScreenPresenterProtocol!
-//    private var categories = [CategoryCollectionViewModelProtocol]()
-//    private var hotSalesProducts = [Product]()
-//    private var bestsellerProducts = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +31,10 @@ final class MainScreenVC: UIViewController {
         
         setupCollectionViews()
         presenter.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
     }
 }
 
@@ -66,6 +66,8 @@ extension MainScreenVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         
         if collectionView == categoryCollectionView  {
             guard let cell = collectionView.dequeueReusableCell(
@@ -150,12 +152,17 @@ extension MainScreenVC {
         bestsellersCollectionView.allowsMultipleSelection = false
         bestsellersCollectionView.allowsSelection = true
         
-        
+        categoryCollectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: "categoryCellID"
+        )
+    
         
         hotSalesCollectionView.register(
             UINib(nibName: "HotSalesCollectionViewCell",bundle: nil),
             forCellWithReuseIdentifier: "hotSalesCellID"
         )
+        
         bestsellersCollectionView.register(
             UINib(nibName: "BestsellersCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "bestsellersCellID"
