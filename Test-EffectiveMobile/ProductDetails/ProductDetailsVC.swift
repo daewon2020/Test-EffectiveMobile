@@ -8,28 +8,35 @@
 import UIKit
 protocol ProductDetailsVCProtocol: AnyObject {
     func productDetailsDidRecieve(_ viewModel: ProductDetailsModel)
+    func setProductHeaderParams(title: String)
 }
 
 class ProductDetailsVC: UIViewController {
-
-    @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var colorCollectionView: UICollectionView!
     @IBOutlet weak var capacityCollectionView: UICollectionView!
+    @IBOutlet weak var paramCollectionView: UICollectionView!
+    @IBOutlet weak var tabCollectionView: UICollectionView!
+    @IBOutlet weak var carouselCollectionView: UICollectionView!
+
+    @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var productParamView: UIView!
+    @IBOutlet weak var productTitleLabel: UILabel!
     
     private var productDetailsViewModel: ProductDetailsModel!
     private var colorSelectedCell: Int? = nil
     private var capacitySelectedCell: Int? = nil
+    private var tabSelectedCell = 0
+    private var imageSelectedCell = 0
     
     var presenter: ProductDetailsPresenterProtocol!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
         
         setupUI()
         setupCollectionViews()
+        
+        presenter.viewDidLoad()
     }
 }
 
@@ -41,6 +48,13 @@ extension ProductDetailsVC: ProductDetailsVCProtocol {
         productDetailsViewModel = viewModel
         colorCollectionView.reloadData()
         capacityCollectionView.reloadData()
+        paramCollectionView.reloadData()
+        tabCollectionView.reloadData()
+        carouselCollectionView.reloadData()
+    }
+    
+    func setProductHeaderParams(title: String) {
+        productTitleLabel.text = title
     }
 }
 
@@ -49,12 +63,13 @@ extension ProductDetailsVC: ProductDetailsVCProtocol {
 extension ProductDetailsVC {
     private func setupUI() {
         productParamView.layer.cornerRadius = 30
-        productParamView.layer.shadowColor = UIColor.black.cgColor
-        productParamView.layer.shadowRadius = 20
-        productParamView.layer.shadowOpacity = 0.1
+        productParamView.layer.shadowColor = UIColor(hex: "#374E88")?.cgColor
+        productParamView.layer.shadowRadius = 10
+        productParamView.layer.shadowOpacity = 0.16
         productParamView.layer.shadowOffset = CGSize(width: 0, height: -5)
         productParamView.clipsToBounds = false
         addToCartButton.layer.cornerRadius = 10
+        productParamView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         navigationController?.isNavigationBarHidden = false
         
@@ -80,6 +95,36 @@ extension ProductDetailsVC {
             CapacityCollectionViewCell.self,
             forCellWithReuseIdentifier: "capacityCellID"
         )
+        
+        paramCollectionView.delegate = self
+        paramCollectionView.dataSource = self
+        paramCollectionView.allowsMultipleSelection = false
+        paramCollectionView.allowsSelection = false
+        
+        paramCollectionView.register(
+            ProductParamCollectionViewCell.self,
+            forCellWithReuseIdentifier: "paramsCellID"
+        )
+        
+        tabCollectionView.delegate = self
+        tabCollectionView.dataSource = self
+        tabCollectionView.allowsMultipleSelection = false
+        tabCollectionView.allowsSelection = true
+
+        tabCollectionView.register(
+            ParamTabsCollectionViewCell.self,
+            forCellWithReuseIdentifier: "tabCellID"
+        )
+        
+        carouselCollectionView.delegate = self
+        carouselCollectionView.dataSource = self
+        carouselCollectionView.allowsMultipleSelection = false
+        carouselCollectionView.allowsSelection = true
+
+        carouselCollectionView.register(
+            CarouselCollectionViewCell.self,
+            forCellWithReuseIdentifier: "carouselCellID"
+        )
     }
 }
 
@@ -96,8 +141,21 @@ extension ProductDetailsVC: UICollectionViewDelegateFlowLayout {
         case 1:
             return CGSize(
                 width: collectionView.frame.width / 2 - 4,
-                height: collectionView.frame.height - 4
+                height: collectionView.frame.height/2
             )
+        case 2:
+            return CGSize(
+                width: collectionView.frame.width / 4,
+                height: collectionView.frame.height
+            )
+        case 3: return CGSize(
+            width: collectionView.frame.width / 3,
+            height: collectionView.frame.height
+        )
+        case 4: return CGSize(
+            width: collectionView.frame.width / 1.2 - 20,
+            height: collectionView.frame.height - 20
+        )
         default:
             return CGSize.zero
         }
@@ -107,6 +165,8 @@ extension ProductDetailsVC: UICollectionViewDelegateFlowLayout {
         switch collectionView.tag {
         case 0: colorSelectedCell = indexPath.row
         case 1: capacitySelectedCell = indexPath.row
+        case 3: tabSelectedCell = indexPath.row
+        case 4: return
         default: break
         }
         collectionView.reloadData()
@@ -121,7 +181,6 @@ extension ProductDetailsVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         switch collectionView.tag {
         case 0: 
             guard let cell = collectionView.dequeueReusableCell(
@@ -150,6 +209,68 @@ extension ProductDetailsVC: UICollectionViewDataSource {
             if let selectedCell = capacitySelectedCell, selectedCell == indexPath.row {
                 cell.isSelected = true
             }
+            cell.viewModel = viewModel
+            
+            return cell
+        
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "paramsCellID",
+                for: indexPath
+            ) as? ProductParamCollectionViewCell else { return UICollectionViewCell() }
+            
+            switch indexPath.row {
+            case 0 :
+                cell.viewModel = ProductParamCollectionViewCellModel(
+                    title: productDetailsViewModel.CPU,
+                    image: "processor"
+                )
+            case 1 :
+                cell.viewModel = ProductParamCollectionViewCellModel(
+                    title: productDetailsViewModel.camera,
+                    image: "camera"
+                )
+            case 2 :
+                cell.viewModel = ProductParamCollectionViewCellModel(
+                    title: productDetailsViewModel.ssd,
+                    image: "memory"
+                )
+            case 3 :
+                cell.viewModel = ProductParamCollectionViewCellModel(
+                    title: productDetailsViewModel.sd,
+                    image: "storage"
+                )
+            default:
+                break
+            }
+            
+            return cell
+        case 3:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "tabCellID",
+                for: indexPath
+            ) as? ParamTabsCollectionViewCell else { return UICollectionViewCell() }
+            
+            let tabTitle = presenter.tabsResponseForCell(at: indexPath)
+            let viewModel = ParamTabsCollectionViewCellModel(title: tabTitle)
+            if tabSelectedCell == indexPath.row {
+                cell.isSelected = true
+            }
+            
+            cell.viewModel = viewModel
+        
+            return cell
+        case 4:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "carouselCellID",
+                for: indexPath
+            ) as? CarouselCollectionViewCell else { return UICollectionViewCell() }
+            
+            let image = productDetailsViewModel.images[indexPath.row]
+            let viewModel = CarouselCollectionViewCellModel(image: image)
+            if imageSelectedCell == indexPath.row {
+                cell.isSelected = true
+            }
             
             cell.viewModel = viewModel
             
@@ -157,5 +278,11 @@ extension ProductDetailsVC: UICollectionViewDataSource {
         default:
             return UICollectionViewCell()
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        imageSelectedCell = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
+        carouselCollectionView.reloadData()
     }
 }

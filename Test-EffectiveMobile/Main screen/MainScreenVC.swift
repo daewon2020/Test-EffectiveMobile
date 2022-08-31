@@ -18,6 +18,7 @@ final class MainScreenVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var hotSalesCollectionView: UICollectionView!
     @IBOutlet weak var bestsellersCollectionView: UICollectionView!
+    @IBOutlet weak var bottomBarView: UIView!
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var locationButton: UIButton!
@@ -27,7 +28,9 @@ final class MainScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MainScreenPresenter(view: self)
+        
         searchBar.searchTextField.backgroundColor = .white
+        bottomBarView.layer.cornerRadius = 30
         
         setupCollectionViews()
         presenter.viewDidLoad()

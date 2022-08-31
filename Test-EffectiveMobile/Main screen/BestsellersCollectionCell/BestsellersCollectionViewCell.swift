@@ -59,10 +59,7 @@ class BestsellersCollectionViewCell: UICollectionViewCell {
             self.image.image = image
         }
         
-
         titleLabel.text = viewModel.title
         titleLabel.font = UIFont.systemFont(ofSize: 10)
-        
-        
     }
 }

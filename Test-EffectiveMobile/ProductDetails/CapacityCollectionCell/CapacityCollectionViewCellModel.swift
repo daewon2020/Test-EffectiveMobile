@@ -8,14 +8,14 @@
 import Foundation
 
 protocol CapacityCollectionViewCellModelProtocol: AnyObject {
-    var capacity: String { get }
+    var title: String { get }
 }
 
 class CapacityCollectionViewCellModel: CapacityCollectionViewCellModelProtocol {
-    var capacity: String
+    var title: String
     
     init(capacity: String) {
-        self.capacity = capacity
+        self.title = capacity
     }
 
 }

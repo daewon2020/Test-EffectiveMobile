@@ -23,6 +23,10 @@ class ColorCollectionViewCell: UICollectionViewCell {
         return colorImageView
     }()
     
+    override func prepareForReuse() {
+        subviews.forEach { $0.removeFromSuperview() }
+    }
+    
     private func updateCell() {
         backgroundColor = UIColor(hex: viewModel.color)
         colorImageView.isHidden = isSelected ? false : true
@@ -43,6 +47,5 @@ class ColorCollectionViewCell: UICollectionViewCell {
                 colorImageView.widthAnchor.constraint(equalToConstant: frame.width / 2)
             ]
         )
-        
     }
 }

@@ -15,15 +15,27 @@ class CapacityCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        subviews.forEach { $0.removeFromSuperview() }
+    }
+    
     private func updateCell() {
         let capacityLabel = UILabel()
         
         capacityLabel.translatesAutoresizingMaskIntoConstraints = false
         capacityLabel.textColor = isSelected ? .white : UIColor(hex: "#8D8D8D")
-        capacityLabel.text = viewModel.capacity
+        capacityLabel.text = viewModel.title
         capacityLabel.textAlignment = .center
+        capacityLabel.font = UIFont.init(name: "Mark Pro Bold", size: 13)
         
-        backgroundColor = isSelected ? UIColor(hex: "#FF6E4E") : .white
+        if isSelected {
+            backgroundColor = UIColor(hex: "#FF6E4E")
+            capacityLabel.textColor = .white
+            
+        }else {
+            backgroundColor = .white
+            capacityLabel.textColor = UIColor(hex: "#8D8D8D")
+        }
         
         layer.masksToBounds = false
         layer.cornerRadius = 10
@@ -41,8 +53,5 @@ class CapacityCollectionViewCell: UICollectionViewCell {
                 capacityLabel.widthAnchor.constraint(equalToConstant: frame.width)
             ]
         )
-        
     }
-    
-    
 }
