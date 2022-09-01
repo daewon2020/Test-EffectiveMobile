@@ -18,20 +18,21 @@ class BestsellersCollectionViewCell: UICollectionViewCell {
             updateCell()
         }
     }
-
+    
     private func updateCell() {
         layer.cornerRadius = 10
         
         let priceAtrrString = NSMutableAttributedString(
             string: String(viewModel.discountPrice ?? 0) + "  ",
-            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)]
+            attributes: [.font: UIFont.init(name: "Mark Pro Bold", size: 16)!]
         )
         
         let oldPrice = NSAttributedString(
             string: String(viewModel.priceWithoutDiscount ?? 0),
-            attributes: [.strikethroughStyle : NSUnderlineStyle.single.rawValue,
-                         .font: UIFont.systemFont(ofSize: 10, weight: .regular),
-                         .foregroundColor: #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+            attributes: [
+                .strikethroughStyle : NSUnderlineStyle.single.rawValue,
+                .font: UIFont.init(name: "Mark Pro Medium", size: 10)!,
+                .foregroundColor: #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
             ]
         )
         
