@@ -15,6 +15,7 @@ protocol MainScreenVCProtocol: AnyObject {
 }
 
 final class MainScreenVC: UIViewController {
+    
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var hotSalesCollectionView: UICollectionView!
     @IBOutlet weak var bestsellersCollectionView: UICollectionView!
@@ -30,6 +31,7 @@ final class MainScreenVC: UIViewController {
         presenter = MainScreenPresenter(view: self)
         
         searchBar.searchTextField.backgroundColor = .white
+        searchBar.delegate = self
         bottomBarView.layer.cornerRadius = 30
         
         setupCollectionViews()
@@ -38,6 +40,18 @@ final class MainScreenVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+    }
+}
+
+//MARK: - 
+
+extension MainScreenVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            searchBar.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }
 
@@ -64,14 +78,12 @@ extension MainScreenVC: MainScreenVCProtocol {
 //MARK: - UICollectionViewDataSource
 
 extension MainScreenVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.productCount(for: collectionView.tag)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
-        
+
         if collectionView == categoryCollectionView  {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "categoryCellID",
@@ -170,9 +182,5 @@ extension MainScreenVC {
             UINib(nibName: "BestsellersCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "bestsellersCellID"
         )
-        
-        
-        
     }
-    
 }

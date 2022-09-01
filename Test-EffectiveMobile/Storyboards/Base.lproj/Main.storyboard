@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Mark Pro Bold.ttf">
+            <string>MarkPro-Bold</string>
+        </array>
         <array key="Mark Pro Medium.ttf">
             <string>MarkPro-Medium</string>
         </array>
@@ -343,7 +346,7 @@
             </objects>
             <point key="canvasLocation" x="-837.60000000000002" y="64.767616191904054"/>
         </scene>
-        <!--Product DetailsVC-->
+        <!--Product Details-->
         <scene sceneID="93y-YC-x3a">
             <objects>
                 <viewController id="GbB-gq-90m" customClass="ProductDetailsVC" customModule="Test_EffectiveMobile" customModuleProvider="target" sceneMemberID="viewController">
@@ -352,30 +355,63 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yro-OK-ets">
-                                <rect key="frame" x="0.0" y="44" width="375" height="246"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="236.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WLk-9R-hve">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="20" maxX="10" maxY="20"/>
+                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vyi-bZ-RKh">
-                                <rect key="frame" x="0.0" y="290" width="375" height="377"/>
+                                <rect key="frame" x="0.0" y="280.5" width="375" height="386.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZHV-2w-Zpe">
-                                        <rect key="frame" x="20" y="20" width="335" height="327"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZHV-2w-Zpe">
+                                        <rect key="frame" x="20" y="20" width="335" height="336.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtk-Bd-Lrk">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30.5"/>
-                                                <fontDescription key="fontDescription" name="MarkPro-Medium" family="Mark Pro" pointSize="24"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3qR-NU-qyI">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="37"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtk-Bd-Lrk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="37"/>
+                                                        <fontDescription key="fontDescription" name="MarkPro-Medium" family="Mark Pro" pointSize="24"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="bKD-BA-inx">
+                                                        <rect key="frame" x="298" y="0.0" width="37" height="37"/>
+                                                        <color key="backgroundColor" red="0.0039215686274509803" green="0.0" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="37" id="HRy-kb-tuF"/>
+                                                            <constraint firstAttribute="width" constant="37" id="NKc-I7-jgw"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="5" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yRf-7A-0NX">
+                                                <rect key="frame" x="0.0" y="47" width="335" height="18"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="k58-EG-fMC"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="2" id="uWM-MO-oV3">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells/>
+                                            </collectionView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ndC-qL-BXx">
-                                                <rect key="frame" x="0.0" y="45.5" width="335" height="50"/>
+                                                <rect key="frame" x="0.0" y="75" width="335" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="kvH-iz-LCZ"/>
@@ -389,7 +425,7 @@
                                                 <cells/>
                                             </collectionView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Adb-VC-oKW">
-                                                <rect key="frame" x="0.0" y="110.5" width="335" height="47"/>
+                                                <rect key="frame" x="0.0" y="135" width="335" height="47"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="47" id="JgJ-nt-1ZD"/>
@@ -403,13 +439,13 @@
                                                 <cells/>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select color and capacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyx-XA-uXg">
-                                                <rect key="frame" x="0.0" y="172.5" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="192" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="MarkPro-Medium" family="Mark Pro" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Dq-e2-gLy">
-                                                <rect key="frame" x="0.0" y="208" width="335" height="50"/>
+                                                <rect key="frame" x="0.0" y="222.5" width="335" height="50"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jHv-XR-etz">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -442,12 +478,13 @@
                                                     </collectionView>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5q-iE-wCp">
-                                                <rect key="frame" x="0.0" y="273" width="335" height="54"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5q-iE-wCp">
+                                                <rect key="frame" x="0.0" y="282.5" width="335" height="54"/>
                                                 <color key="backgroundColor" red="1" green="0.43137254899999999" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="54" id="NTM-3t-w2Z"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="MarkPro-Bold" family="Mark Pro" pointSize="20"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Add to cart $1500">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -477,21 +514,38 @@
                             <constraint firstItem="nLb-I3-cDg" firstAttribute="trailing" secondItem="Yro-OK-ets" secondAttribute="trailing" id="kIx-JE-b3s"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="OI7-Fl-gHY"/>
+                    <navigationItem key="navigationItem" title="Product Details" largeTitleDisplayMode="always" id="OI7-Fl-gHY"/>
                     <connections>
                         <outlet property="addToCartButton" destination="M5q-iE-wCp" id="wyF-Hp-lGn"/>
                         <outlet property="capacityCollectionView" destination="Wdf-Sm-Bph" id="ABH-nH-0pg"/>
                         <outlet property="carouselCollectionView" destination="Yro-OK-ets" id="2nI-Lq-yww"/>
                         <outlet property="colorCollectionView" destination="jHv-XR-etz" id="ipW-J1-Z7G"/>
+                        <outlet property="isFavoriteButton" destination="bKD-BA-inx" id="LdD-DK-80k"/>
                         <outlet property="paramCollectionView" destination="Adb-VC-oKW" id="T9Z-BD-rdF"/>
                         <outlet property="productParamView" destination="Vyi-bZ-RKh" id="djd-aI-idd"/>
                         <outlet property="productTitleLabel" destination="Dtk-Bd-Lrk" id="8Re-74-JfZ"/>
+                        <outlet property="ratingCollectionView" destination="yRf-7A-0NX" id="YHA-0s-9kn"/>
                         <outlet property="tabCollectionView" destination="ndC-qL-BXx" id="5d6-BD-L9V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bzo-hT-oDP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="58" y="65"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="HSw-rY-sHA">
+            <objects>
+                <viewController id="JFc-GJ-tqS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BYW-hg-tem">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ctM-SP-abb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jw2-nr-OKG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="852" y="75.112443778110944"/>
         </scene>
     </scenes>
     <resources>

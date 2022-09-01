@@ -39,6 +39,7 @@ class ProductDetailsPresenter: ProductDetailsPresenterProtocol {
             guard let tabsCount = productParamTabs else { return 0}
             return tabsCount.count
         case 4: return viewModel.images.count
+        case 5: return Int(viewModel.rating.rounded(.toNearestOrEven))
         default: return 0
         }
     }
@@ -67,5 +68,6 @@ extension ProductDetailsPresenter {
         guard let viewModel = productDetailsViewModel else { return }
         view.setProductHeaderParams(title: viewModel.title)
         view.productDetailsDidRecieve(viewModel)
+        view.setIsFavoriteButtonHidden(to: viewModel.isFavorites)
     }
 }

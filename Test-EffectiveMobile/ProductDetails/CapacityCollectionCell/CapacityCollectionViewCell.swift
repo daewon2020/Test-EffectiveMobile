@@ -17,6 +17,7 @@ class CapacityCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         subviews.forEach { $0.removeFromSuperview() }
+        isSelected = false
     }
     
     private func updateCell() {

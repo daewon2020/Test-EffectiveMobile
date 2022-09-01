@@ -9,6 +9,7 @@ import UIKit
 protocol ProductDetailsVCProtocol: AnyObject {
     func productDetailsDidRecieve(_ viewModel: ProductDetailsModel)
     func setProductHeaderParams(title: String)
+    func setIsFavoriteButtonHidden(to condition: Bool)
 }
 
 class ProductDetailsVC: UIViewController {
@@ -17,10 +18,12 @@ class ProductDetailsVC: UIViewController {
     @IBOutlet weak var paramCollectionView: UICollectionView!
     @IBOutlet weak var tabCollectionView: UICollectionView!
     @IBOutlet weak var carouselCollectionView: UICollectionView!
-
+    @IBOutlet weak var ratingCollectionView: UICollectionView!
+    
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var productParamView: UIView!
     @IBOutlet weak var productTitleLabel: UILabel!
+    @IBOutlet weak var isFavoriteButton: UIImageView!
     
     private var productDetailsViewModel: ProductDetailsModel!
     private var colorSelectedCell: Int? = nil
@@ -51,11 +54,17 @@ extension ProductDetailsVC: ProductDetailsVCProtocol {
         paramCollectionView.reloadData()
         tabCollectionView.reloadData()
         carouselCollectionView.reloadData()
+        ratingCollectionView.reloadData()
     }
     
     func setProductHeaderParams(title: String) {
         productTitleLabel.text = title
     }
+    
+    func setIsFavoriteButtonHidden(to condition: Bool) {
+        isFavoriteButton.isHidden = condition
+    }
+    
 }
 
 //MARK: - Private functions
@@ -125,6 +134,17 @@ extension ProductDetailsVC {
             CarouselCollectionViewCell.self,
             forCellWithReuseIdentifier: "carouselCellID"
         )
+        
+        ratingCollectionView.delegate = self
+        ratingCollectionView.dataSource = self
+        ratingCollectionView.allowsMultipleSelection = false
+        ratingCollectionView.allowsSelection = false
+
+        ratingCollectionView.register(
+            RatingCollectionViewCell.self,
+            forCellWithReuseIdentifier: "ratingCellID"
+        )
+        
     }
 }
 
@@ -154,7 +174,12 @@ extension ProductDetailsVC: UICollectionViewDelegateFlowLayout {
         )
         case 4: return CGSize(
             width: collectionView.frame.width / 1.2 - 20,
-            height: collectionView.frame.height - 20
+            height: collectionView.frame.height - 30
+        )
+        case 5:
+            return CGSize(
+            width: collectionView.frame.height,
+            height: collectionView.frame.height
         )
         default:
             return CGSize.zero
@@ -275,6 +300,14 @@ extension ProductDetailsVC: UICollectionViewDataSource {
             cell.viewModel = viewModel
             
             return cell
+        case 5:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "ratingCellID",
+                for: indexPath
+            ) as? RatingCollectionViewCell else { return UICollectionViewCell() }
+            
+            return cell
+            
         default:
             return UICollectionViewCell()
         }

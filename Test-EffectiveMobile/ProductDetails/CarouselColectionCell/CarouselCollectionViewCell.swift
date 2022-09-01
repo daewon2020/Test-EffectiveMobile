@@ -15,27 +15,24 @@ class CarouselCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    lazy var caourelImageView: UIImageView = {
-        let caourelImageView = UIImageView()
-        caourelImageView.translatesAutoresizingMaskIntoConstraints = false
-        caourelImageView.contentMode = .scaleToFill
-        caourelImageView.tintColor = .black
+    lazy var carouselImageView: UIImageView = {
+        let carouselImageView = UIImageView()
+        carouselImageView.translatesAutoresizingMaskIntoConstraints = false
+        carouselImageView.contentMode = .scaleAspectFit
         
-        return caourelImageView
+        return carouselImageView
     }()
     
     override func prepareForReuse() {
         subviews.forEach { $0.removeFromSuperview() }
+        removeConstraints(constraints)
+        carouselImageView.removeConstraints(carouselImageView.constraints)
     }
     
     private func updateCell() {
-        
-        ImageLoader.shared.getImageFromCache(for: viewModel.image) { image in
-            self.caourelImageView.image = image
-        }
+        var image: UIImage? = nil
         
         if !isSelected {
-            
             UIView.animate(withDuration: 0.3, delay: 0) {
                 self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             }
@@ -45,7 +42,6 @@ class CarouselCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        clipsToBounds = false
         backgroundColor = .white
         
         layer.cornerRadius = 20
@@ -54,19 +50,27 @@ class CarouselCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.3
         layer.shadowOffset = CGSize(width: 0, height: 5)
         
-        addSubview(caourelImageView)
-        setConstraints()
+        
+        ImageLoader.shared.getImageFromCache(for: viewModel.image) { loadedImage in
+            image = loadedImage
+            let width = self.frame.width > self.frame.height
+            ? self.frame.width
+            : self.frame.width - 40
+            
+            self.addSubview(self.carouselImageView)
+            
+            self.setConstraintsForImageView(with: width)
+            self.carouselImageView.image = image
+        }
     }
     
-    private func setConstraints() {
-        NSLayoutConstraint.activate(
-            [
-                caourelImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-                caourelImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-                caourelImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-                caourelImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
-            ]
-        )
+    private func setConstraintsForImageView(with width: CGFloat) {
+        NSLayoutConstraint.activate([
+            carouselImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            carouselImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            carouselImageView.widthAnchor.constraint(equalToConstant: width),
+            carouselImageView.heightAnchor.constraint(equalToConstant: frame.height)
+        ])
     }
 }
 
