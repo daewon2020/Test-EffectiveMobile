@@ -39,6 +39,23 @@ class ProductDetailsVC: UIViewController {
         setupUI()
         setupCollectionViews()
         
+        let backButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 37, height: 37))
+        backButtonView.backgroundColor = UIColor(hex: "#010035")
+        backButtonView.layer.cornerRadius = 10
+        
+        let backwardImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 17, height: 14))
+        backwardImageView.image = UIImage(systemName: "chevron.left")
+        backwardImageView.contentMode = .scaleAspectFit
+        backwardImageView.tintColor = .white
+        backwardImageView.backgroundColor = .clear
+        backButtonView.addSubview(backwardImageView)
+        backwardImageView.center = backButtonView.center
+        
+        
+        let customBackButton = UIBarButtonItem(customView: backButtonView)
+        title = "Product details"
+        navigationItem.leftBarButtonItem = customBackButton
+        
         presenter.viewDidLoad()
     }
 }

@@ -349,7 +349,7 @@
             </objects>
             <point key="canvasLocation" x="-837.60000000000002" y="64.767616191904054"/>
         </scene>
-        <!--Product Details-->
+        <!--Title-->
         <scene sceneID="93y-YC-x3a">
             <objects>
                 <viewController id="GbB-gq-90m" customClass="ProductDetailsVC" customModule="Test_EffectiveMobile" customModuleProvider="target" sceneMemberID="viewController">
@@ -517,7 +517,7 @@
                             <constraint firstItem="nLb-I3-cDg" firstAttribute="trailing" secondItem="Yro-OK-ets" secondAttribute="trailing" id="kIx-JE-b3s"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Product Details" largeTitleDisplayMode="always" id="OI7-Fl-gHY"/>
+                    <navigationItem key="navigationItem" title="Title" id="7Kz-25-3O1"/>
                     <connections>
                         <outlet property="addToCartButton" destination="M5q-iE-wCp" id="wyF-Hp-lGn"/>
                         <outlet property="capacityCollectionView" destination="Wdf-Sm-Bph" id="ABH-nH-0pg"/>
@@ -529,17 +529,17 @@
                         <outlet property="productTitleLabel" destination="Dtk-Bd-Lrk" id="8Re-74-JfZ"/>
                         <outlet property="ratingCollectionView" destination="yRf-7A-0NX" id="YHA-0s-9kn"/>
                         <outlet property="tabCollectionView" destination="ndC-qL-BXx" id="5d6-BD-L9V"/>
-                        <segue destination="p5n-Cb-MmC" kind="show" id="rsU-GP-dHJ"/>
+                        <segue destination="p5n-Cb-MmC" kind="show" identifier="cartID" id="rsU-GP-dHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bzo-hT-oDP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4" y="-40"/>
         </scene>
-        <!--View Controller-->
+        <!--CartVC-->
         <scene sceneID="fQT-Dk-Xto">
             <objects>
-                <viewController id="p5n-Cb-MmC" sceneMemberID="viewController">
+                <viewController id="p5n-Cb-MmC" customClass="CartVC" customModule="Test_EffectiveMobile" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mcz-5l-bdp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -604,6 +604,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BGV-yD-pt9">
+                                        <rect key="frame" x="20" y="40" width="335" height="234"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0039215686269999999" green="0.0" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -615,11 +619,15 @@
                                     <constraint firstAttribute="bottom" secondItem="Cs2-mL-evb" secondAttribute="bottom" constant="40" id="HNg-GH-bbO"/>
                                     <constraint firstItem="Io1-yZ-oOg" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="2" id="Hsm-KK-KkV"/>
                                     <constraint firstItem="rP2-6W-76I" firstAttribute="top" secondItem="Io1-yZ-oOg" secondAttribute="bottom" constant="20" id="QAb-Yk-Qo3"/>
+                                    <constraint firstAttribute="trailing" secondItem="BGV-yD-pt9" secondAttribute="trailing" constant="20" id="ZXA-iC-kpJ"/>
                                     <constraint firstItem="rP2-6W-76I" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="40" id="aoN-ud-96j"/>
                                     <constraint firstItem="yjz-eR-GsE" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="40" id="baq-m4-Q1M"/>
                                     <constraint firstAttribute="trailing" secondItem="Io1-yZ-oOg" secondAttribute="trailing" constant="2" id="jLM-v8-gA3"/>
+                                    <constraint firstItem="BGV-yD-pt9" firstAttribute="top" secondItem="Emp-lS-ulf" secondAttribute="top" constant="40" id="l68-l5-t4b"/>
+                                    <constraint firstItem="BGV-yD-pt9" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="20" id="miI-Te-git"/>
                                     <constraint firstAttribute="trailing" secondItem="Cs2-mL-evb" secondAttribute="trailing" constant="40" id="nf4-rg-oYC"/>
                                     <constraint firstItem="Cs2-mL-evb" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="40" id="p2X-xK-uxk"/>
+                                    <constraint firstItem="Io1-yZ-oOg" firstAttribute="top" secondItem="BGV-yD-pt9" secondAttribute="bottom" constant="20" id="vDM-JG-Mul"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c39-Xt-clA">
@@ -628,6 +636,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y8d-Jn-VqB">
+                                <rect key="frame" x="229" y="44" width="106" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chevron.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CMQ-zQ-x2b">
+                                        <rect key="frame" x="32" y="32" width="43" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="D5Y-so-h4b"/>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
@@ -642,6 +662,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4J5-Fu-ojX"/>
+                    <connections>
+                        <outlet property="backgroundSheetView" destination="Emp-lS-ulf" id="Tvz-xh-3aZ"/>
+                        <outlet property="cartTableView" destination="BGV-yD-pt9" id="vaF-ZS-oQi"/>
+                        <outlet property="deliveryLabel" destination="Vze-N5-g9k" id="By0-3r-54j"/>
+                        <outlet property="totalLabel" destination="yrp-iX-hvk" id="30u-Kw-gDB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3M-1g-3T6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -651,6 +677,7 @@
     <resources>
         <image name="arrowDown" width="10" height="6"/>
         <image name="cart" width="18" height="18"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="dot" width="8" height="8"/>
         <image name="filter" width="11" height="13"/>
         <image name="geo" width="12" height="16"/>
