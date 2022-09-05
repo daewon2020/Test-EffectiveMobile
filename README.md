@@ -6,7 +6,7 @@ Used native URLSession for networking
 
 <table>
     <td><img src="https://user-images.githubusercontent.com/56202186/188511738-e8e15530-d04e-4128-8a20-b9177d2caa3c.png"></td>
-    <td><img src="https://user-images.githubusercontent.com/56202186/188511767-cf909222-fdde-4cbb-9c93-1386da05e999.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/56202186/188512049-ef70a002-99a6-4523-8a3c-ac345a212d6b.png"></td>
     <td><img src="https://user-images.githubusercontent.com/56202186/188511778-cec724f6-395c-44aa-ac1e-dc6585806d82.png"></td>
   </tr>
  </table>
