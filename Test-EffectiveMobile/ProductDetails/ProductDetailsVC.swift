@@ -42,7 +42,7 @@ class ProductDetailsVC: UIViewController {
         let backButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 37, height: 37))
         backButtonView.backgroundColor = UIColor(hex: "#010035")
         backButtonView.layer.cornerRadius = 10
-        
+
         let backwardImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 17, height: 14))
         backwardImageView.image = UIImage(systemName: "chevron.left")
         backwardImageView.contentMode = .scaleAspectFit
@@ -51,12 +51,34 @@ class ProductDetailsVC: UIViewController {
         backButtonView.addSubview(backwardImageView)
         backwardImageView.center = backButtonView.center
         
-        
         let customBackButton = UIBarButtonItem(customView: backButtonView)
-        title = "Product details"
         navigationItem.leftBarButtonItem = customBackButton
+        backButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonTaped)))
+        title = "Product details"
         
+        let cartButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 37, height: 37))
+        cartButtonView.backgroundColor = UIColor(hex: "#FF6E4E")
+        cartButtonView.layer.cornerRadius = 10
+
+        let cartImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 17, height: 14))
+        cartImageView.image = UIImage(named: "cart")
+        cartImageView.contentMode = .scaleAspectFit
+        cartImageView.tintColor = .white
+        cartImageView.backgroundColor = .clear
+        cartButtonView.addSubview(cartImageView)
+        cartImageView.center = cartButtonView.center
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButtonView)
+        cartButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cartButtonTaped)))
         presenter.viewDidLoad()
+    }
+    
+    @objc private func backButtonTaped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func cartButtonTaped() {
+        performSegue(withIdentifier: "cartID", sender: nil)
     }
 }
 

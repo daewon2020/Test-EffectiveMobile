@@ -590,29 +590,29 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$1,000,000 us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrp-iX-hvk">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,000,000 us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrp-iX-hvk">
                                         <rect key="frame" x="238" y="315" width="108" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="MarkPro" family="Mark Pro" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vze-N5-g9k">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vze-N5-g9k">
                                         <rect key="frame" x="238" y="342" width="30" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="MarkPro" family="Mark Pro" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BGV-yD-pt9">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BGV-yD-pt9">
                                         <rect key="frame" x="20" y="40" width="335" height="234"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.0039215686269999999" green="0.0" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0039215686269999999" green="0.0" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Cs2-mL-evb" firstAttribute="top" secondItem="pCO-na-KJN" secondAttribute="bottom" constant="20" id="42n-Fz-LCY"/>
+                                    <constraint firstItem="yrp-iX-hvk" firstAttribute="leading" secondItem="rP2-6W-76I" secondAttribute="trailing" constant="139" id="AgI-6u-TGm"/>
                                     <constraint firstItem="pCO-na-KJN" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="2" id="BmP-Dd-b2c"/>
+                                    <constraint firstItem="yrp-iX-hvk" firstAttribute="top" secondItem="Io1-yZ-oOg" secondAttribute="bottom" constant="20" id="D53-CY-l8p"/>
                                     <constraint firstAttribute="trailing" secondItem="pCO-na-KJN" secondAttribute="trailing" constant="2" id="Efj-VV-6Av"/>
                                     <constraint firstItem="yjz-eR-GsE" firstAttribute="top" secondItem="rP2-6W-76I" secondAttribute="bottom" constant="8" symbolic="YES" id="Ei6-mV-ahu"/>
                                     <constraint firstItem="pCO-na-KJN" firstAttribute="top" secondItem="yjz-eR-GsE" secondAttribute="bottom" constant="20" id="G0n-Ah-4ni"/>
@@ -625,9 +625,11 @@
                                     <constraint firstAttribute="trailing" secondItem="Io1-yZ-oOg" secondAttribute="trailing" constant="2" id="jLM-v8-gA3"/>
                                     <constraint firstItem="BGV-yD-pt9" firstAttribute="top" secondItem="Emp-lS-ulf" secondAttribute="top" constant="40" id="l68-l5-t4b"/>
                                     <constraint firstItem="BGV-yD-pt9" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="20" id="miI-Te-git"/>
+                                    <constraint firstItem="Vze-N5-g9k" firstAttribute="top" secondItem="yrp-iX-hvk" secondAttribute="bottom" constant="7" id="n3q-Nr-3KL"/>
                                     <constraint firstAttribute="trailing" secondItem="Cs2-mL-evb" secondAttribute="trailing" constant="40" id="nf4-rg-oYC"/>
                                     <constraint firstItem="Cs2-mL-evb" firstAttribute="leading" secondItem="Emp-lS-ulf" secondAttribute="leading" constant="40" id="p2X-xK-uxk"/>
                                     <constraint firstItem="Io1-yZ-oOg" firstAttribute="top" secondItem="BGV-yD-pt9" secondAttribute="bottom" constant="20" id="vDM-JG-Mul"/>
+                                    <constraint firstItem="Vze-N5-g9k" firstAttribute="leading" secondItem="yjz-eR-GsE" secondAttribute="trailing" constant="139" id="yFt-32-xDh"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c39-Xt-clA">
@@ -636,18 +638,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y8d-Jn-VqB">
-                                <rect key="frame" x="229" y="44" width="106" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chevron.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CMQ-zQ-x2b">
-                                        <rect key="frame" x="32" y="32" width="43" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="labelColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="D5Y-so-h4b"/>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
@@ -677,7 +667,6 @@
     <resources>
         <image name="arrowDown" width="10" height="6"/>
         <image name="cart" width="18" height="18"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="dot" width="8" height="8"/>
         <image name="filter" width="11" height="13"/>
         <image name="geo" width="12" height="16"/>

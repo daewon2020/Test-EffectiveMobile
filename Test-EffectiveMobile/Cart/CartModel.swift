@@ -8,16 +8,17 @@
 import Foundation
 
 struct CartModel: Decodable {
-    let basket: [Basket]
-    let id: Int
+    var basket: [Basket]
+    let id: String
     let delivery: String
     let total: Double
 }
 
 struct Basket: Decodable {
     let id: Int
-    let image: String
+    let images: String
     let price: Double
     let title: String
+    var count: Int? = 1
 }
 
