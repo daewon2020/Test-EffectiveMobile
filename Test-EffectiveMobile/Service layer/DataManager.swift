@@ -18,4 +18,8 @@ struct DataManager {
             CategoryCollectionViewModel(name: "Games")
         ]
     }
+    
+    func getparamTabs() -> [String]{
+        ["Shop", "Details", "Features"]
+    }
 }
