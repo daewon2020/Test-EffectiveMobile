@@ -44,6 +44,7 @@
 		6A75CA0D28BE6BF300EE698D /* CapacityCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A75CA0C28BE6BF300EE698D /* CapacityCollectionViewCellModel.swift */; };
 		6A75CA1128BE73F300EE698D /* ProductParamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A75CA1028BE73F300EE698D /* ProductParamCollectionViewCell.swift */; };
 		6A75CA1328BE75BD00EE698D /* ProductParamCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A75CA1228BE75BD00EE698D /* ProductParamCollectionViewCellModel.swift */; };
+		6AE0D8EC28C6789C0022713A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE0D8EB28C6789C0022713A /* ViewController.swift */; };
 		6AF110E328BF55B800704705 /* ParamTabsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF110E228BF55B800704705 /* ParamTabsCollectionViewCell.swift */; };
 		6AF110E528BF55F800704705 /* ParamTabsCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF110E428BF55F800704705 /* ParamTabsCollectionViewCellModel.swift */; };
 		6AF110E928BF79EF00704705 /* Mark Pro Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AF110E828BF79EF00704705 /* Mark Pro Medium.ttf */; };
@@ -113,6 +114,7 @@
 		6A75CA0C28BE6BF300EE698D /* CapacityCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		6A75CA1028BE73F300EE698D /* ProductParamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductParamCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A75CA1228BE75BD00EE698D /* ProductParamCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductParamCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		6AE0D8EB28C6789C0022713A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6AF110E228BF55B800704705 /* ParamTabsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamTabsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6AF110E428BF55F800704705 /* ParamTabsCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamTabsCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		6AF110E828BF79EF00704705 /* Mark Pro Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark Pro Medium.ttf"; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				6A4DD84428B751E7005B1827 /* Service layer */,
 				6A4DD84128B751B1005B1827 /* Resources */,
 				6A75C9FB28BBBF1200EE698D /* Models */,
+				6AE0D8EB28C6789C0022713A /* ViewController.swift */,
 			);
 			path = "Test-EffectiveMobile";
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				6A4DD81428B7513D005B1827 /* MainScreenVC.swift in Sources */,
 				6A22BA1928C25239008E64A0 /* CartVC.swift in Sources */,
 				6A4DD81028B7513D005B1827 /* AppDelegate.swift in Sources */,
+				6AE0D8EC28C6789C0022713A /* ViewController.swift in Sources */,
 				6AF110F328BFA66700704705 /* CarouselCollectionViewCell.swift in Sources */,
 				6A22BA1B28C25656008E64A0 /* CartModel.swift in Sources */,
 				6A75C9FF28BBC89600EE698D /* ProductDetailsPresenter.swift in Sources */,

@@ -10,8 +10,8 @@ import UIKit
 protocol MainScreenVCProtocol: AnyObject {
     func reloadCategories()
     func productsDidRecieve()
-
     func setLocation(_ location: String)
+    func favoriteButtonTapped(at cell: UICollectionViewCell)
 }
 
 final class MainScreenVC: UIViewController {
@@ -23,8 +23,43 @@ final class MainScreenVC: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var filerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var filerBrandTextField: UITextField!
+    @IBOutlet weak var filterPriceTextField: UITextField!
+    @IBOutlet weak var filterSizeTextField: UITextField!
     
     private var presenter: MainScreenPresenterProtocol!
+    private var keyboardIsShown = false
+    lazy var pickerView = UIPickerView()
+    
+    lazy var toolBar: UIToolbar = {
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        
+        let cancelButton = UIBarButtonItem(
+            title: "Cancel",
+            style: .done,
+            target: self,
+            action: #selector(cancelTabBarButtonTapped)
+        )
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let setButton = UIBarButtonItem(
+            title: "Set",
+            style: .done,
+            target: self,
+            action: nil
+        )
+        
+        toolBar.setItems([cancelButton,space,setButton], animated: true)
+        
+        return toolBar
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +69,18 @@ final class MainScreenVC: UIViewController {
         searchBar.delegate = self
         bottomBarView.layer.cornerRadius = 30
         
+        filterView.layer.cornerRadius = 20
+        filterView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        filerBrandTextField.inputAccessoryView = toolBar
+        filerBrandTextField.inputView = pickerView
+        let imageView = UIImageView(image: UIImage(systemName: "chevron.down"))
+        imageView.frame = CGRect(x: 0, y: 0, width: 37, height: 37)
+        filerBrandTextField.rightView = imageView
+        
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShown), name: UIResponder.keyboardWillShowNotification, object: nil)
         setupCollectionViews()
         presenter.viewDidLoad()
     }
@@ -41,9 +88,28 @@ final class MainScreenVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
     }
+    
+    @IBAction func filterCloseButtonTapped() {
+        if keyboardIsShown {
+            cancelTabBarButtonTapped()
+        }
+        filerViewBottomConstraint.constant -= 400
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.allowAnimatedContent]) {
+                self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func filerButtonTapped() {
+        if filerViewBottomConstraint.constant == -400 {
+            filerViewBottomConstraint.constant += 400
+            UIView.animate(withDuration: 0.4, delay: 0, options: [.allowAnimatedContent]) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
 }
 
-//MARK: - 
+//MARK: - UISearchBarDelegate
 
 extension MainScreenVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -65,6 +131,12 @@ extension MainScreenVC: MainScreenVCProtocol {
     func productsDidRecieve() {
         hotSalesCollectionView.reloadData()
         bestsellersCollectionView.reloadData()
+    }
+    
+    func favoriteButtonTapped(at cell: UICollectionViewCell) {
+        if let indexPath = bestsellersCollectionView.indexPath(for: cell) {
+            presenter.favoriteButtonTapped(at: indexPath)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -109,7 +181,7 @@ extension MainScreenVC: UICollectionViewDataSource {
                 withReuseIdentifier: "bestsellersCellID",
                 for: indexPath
             ) as? BestsellersCollectionViewCell else { return UICollectionViewCell() }
-                
+            cell.parentView = self
             cell.viewModel = presenter.productRequest(with: collectionView.tag, for: indexPath)
             return cell
         }
@@ -182,5 +254,22 @@ extension MainScreenVC {
             UINib(nibName: "BestsellersCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "bestsellersCellID"
         )
+    }
+    
+    @objc private func cancelTabBarButtonTapped() {
+        keyboardIsShown = false
+        filerBrandTextField.resignFirstResponder()
+        filerViewBottomConstraint.constant -= 200
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowAnimatedContent]) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardDidShown() {
+        keyboardIsShown = true
+        filerViewBottomConstraint.constant += 200
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.allowAnimatedContent]) {
+            self.view.layoutIfNeeded()
+        }
     }
 }

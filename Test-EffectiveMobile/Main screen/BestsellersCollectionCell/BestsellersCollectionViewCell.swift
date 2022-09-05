@@ -13,6 +13,8 @@ class BestsellersCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var isFavoriteButton: UIButton!
     
+    unowned var parentView: MainScreenVC!
+
     var viewModel: Product! {
         didSet {
             updateCell()
@@ -62,5 +64,9 @@ class BestsellersCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = viewModel.title
         titleLabel.font = UIFont.systemFont(ofSize: 10)
+    }
+    
+    @IBAction func favoriteButtonTapped() {
+        parentView.favoriteButtonTapped(at: self)
     }
 }

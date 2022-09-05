@@ -14,6 +14,7 @@ protocol MainScreenPresenterProtocol: AnyObject {
     func categoryRequest(for indexPath: IndexPath) -> CategoryCollectionViewModelProtocol
     func productCount(for collectionViewTag: Int) -> Int
     func productRequest(with collectionViewTag: Int, for indexPath: IndexPath) -> Product?
+    func favoriteButtonTapped(at indexPath: IndexPath)
 }
 
 final class MainScreenPresenter: MainScreenPresenterProtocol {
@@ -64,6 +65,11 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
         case 2: return bestsellerProducts.count
         default: return 0
         }
+    }
+    
+    func favoriteButtonTapped(at indexPath: IndexPath) {
+        bestsellerProducts[indexPath.row].isFavorites!.toggle()
+        view.productsDidRecieve()
     }
 }
 

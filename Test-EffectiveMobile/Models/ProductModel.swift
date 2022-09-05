@@ -20,7 +20,7 @@ struct ProductModel: Decodable {
 struct Product: Decodable {
     let id: Int
     let isNew: Bool?
-    let isFavorites: Bool?
+    var isFavorites: Bool?
     let title: String
     let subtitle: String?
     let isBuy: Bool?
