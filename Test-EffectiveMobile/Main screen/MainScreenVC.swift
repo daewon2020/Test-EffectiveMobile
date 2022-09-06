@@ -89,23 +89,6 @@ final class MainScreenVC: UIViewController {
         searchBar.delegate = self
         
         bottomBarView.layer.cornerRadius = 30
-        
-        filterView.layer.cornerRadius = 20
-        filterView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-        
-        let imageView = UIImageView(image: UIImage(systemName: "chevron.down"))
-        imageView.tintColor = UIColor(hex: "#B3B3B3")
-        
-        //filerBrandTextField.rightViewMode = .unlessEditing
-        //filterPriceTextField.rightViewMode = .always
-        //filterSizeTextField.rightViewMode = .always
-        
-        filterBrandTextField.rightView = imageView
-        filterPriceTextField.rightView = imageView
-        filterSizeTextField.rightView = imageView
-        
-
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShown), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -149,6 +132,14 @@ extension MainScreenVC: UISearchBarDelegate {
             return false
         }
         return true
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension MainScreenVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        false
     }
 }
 
@@ -286,12 +277,30 @@ extension MainScreenVC {
     private func setupTextFields() {
         filterBrandTextField.inputAccessoryView = toolBar
         filterBrandTextField.inputView = brandPickerView
+        filterBrandTextField.delegate = self
         
         filterPriceTextField.inputAccessoryView = toolBar
         filterPriceTextField.inputView = pricePickerView
+        filterPriceTextField.delegate = self
         
         filterSizeTextField.inputAccessoryView = toolBar
         filterSizeTextField.inputView = sizePickerView
+        
+        filterView.layer.cornerRadius = 20
+        filterView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        
+        filterBrandTextField.rightView = UIImageView(image: UIImage(systemName: "chevron.down"))
+        filterPriceTextField.rightView = UIImageView(image: UIImage(systemName: "chevron.down"))
+        filterSizeTextField.rightView = UIImageView(image: UIImage(systemName: "chevron.down"))
+        
+        filterBrandTextField.rightView?.tintColor = UIColor(hex: "#B3B3B3")
+        filterPriceTextField.rightView?.tintColor = UIColor(hex: "#B3B3B3")
+        filterSizeTextField.rightView?.tintColor = UIColor(hex: "#B3B3B3")
+        
+        filterBrandTextField.rightViewMode = .always
+        filterSizeTextField.rightViewMode = .always
+        filterPriceTextField.rightViewMode = .always
     }
 }
 
