@@ -54,7 +54,7 @@ class ProductDetailsPresenter: ProductDetailsPresenterProtocol {
 
 extension ProductDetailsPresenter {
     private func fetchData() {
-        productParamTabs = DataManager().getparamTabs()
+        productParamTabs = DataManager.shared.getparamTabs()
         NetworkManager.shared.fetchData(
             with: "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5",
             for: ProductDetailsModel.self

@@ -77,7 +77,7 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
 
 extension MainScreenPresenter {
     private func fetchCategoryData() {
-        categories = DataManager().getCategories()
+        categories = DataManager.shared.getCategories()
         view.reloadCategories()
     }
     
@@ -90,6 +90,7 @@ extension MainScreenPresenter {
             self.hotSalesProducts = products.homeStore
             self.view.productsDidRecieve()
         }
-        
     }
+    
+
 }
