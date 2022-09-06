@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class LocationManager: NSObject {
+final class LocationManager: NSObject {
     typealias Listener = (String?) -> Void
     static var shared = LocationManager()
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
+final class MainScreenCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     private unowned var presenter: MainScreenPresenterProtocol
     private unowned var parentView: MainScreenVC
     

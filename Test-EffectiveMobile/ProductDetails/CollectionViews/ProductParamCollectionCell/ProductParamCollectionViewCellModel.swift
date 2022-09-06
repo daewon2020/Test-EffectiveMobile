@@ -12,7 +12,7 @@ protocol ProductParamCollectionViewCellModelProtocol: AnyObject {
     var image: String { get }
 }
 
-class ProductParamCollectionViewCellModel: ProductParamCollectionViewCellModelProtocol {
+final class ProductParamCollectionViewCellModel: ProductParamCollectionViewCellModelProtocol {
     var title: String
     var image: String
     

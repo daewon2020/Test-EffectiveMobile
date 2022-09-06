@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+final class MainScreenCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout {
     private unowned var presenter: MainScreenPresenterProtocol
     private unowned var delegate: MainScreenVCDelegateProtocol
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColorCollectionViewCell: UICollectionViewCell {
+final class ColorCollectionViewCell: UICollectionViewCell {
     var viewModel: ColorCollectionViewCellModelProtocol! {
         didSet {
             updateCell()

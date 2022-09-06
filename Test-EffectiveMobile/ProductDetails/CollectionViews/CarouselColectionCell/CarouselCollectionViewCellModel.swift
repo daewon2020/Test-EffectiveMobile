@@ -11,7 +11,7 @@ protocol CarouselCollectionViewCellModelProtocol {
     var image: String { get }
 }
 
-class CarouselCollectionViewCellModel: CarouselCollectionViewCellModelProtocol {
+final class CarouselCollectionViewCellModel: CarouselCollectionViewCellModelProtocol {
     var image: String
     
     init(image: String) {

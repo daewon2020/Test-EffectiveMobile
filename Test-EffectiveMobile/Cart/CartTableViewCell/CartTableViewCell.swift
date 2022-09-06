@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CartTableViewCell: UITableViewCell {
+final class CartTableViewCell: UITableViewCell {
 
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!

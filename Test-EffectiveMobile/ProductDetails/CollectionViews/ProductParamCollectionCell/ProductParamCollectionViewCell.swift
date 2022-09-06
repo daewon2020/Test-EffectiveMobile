@@ -7,8 +7,7 @@
 
 import UIKit
 
-class ProductParamCollectionViewCell: UICollectionViewCell {
-    
+final class ProductParamCollectionViewCell: UICollectionViewCell {
     var viewModel: ProductParamCollectionViewCellModelProtocol! {
         didSet {
             updateCell()

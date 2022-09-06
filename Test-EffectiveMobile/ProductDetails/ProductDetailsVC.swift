@@ -12,7 +12,7 @@ protocol ProductDetailsVCProtocol: AnyObject {
     func setIsFavoriteButtonHidden(to condition: Bool)
 }
 
-class ProductDetailsVC: UIViewController {
+final class ProductDetailsVC: UIViewController {
     @IBOutlet weak var colorCollectionView: UICollectionView!
     @IBOutlet weak var capacityCollectionView: UICollectionView!
     @IBOutlet weak var paramCollectionView: UICollectionView!

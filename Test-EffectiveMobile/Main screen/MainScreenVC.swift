@@ -39,8 +39,8 @@ final class MainScreenVC: UIViewController {
     private var presenter: MainScreenPresenterProtocol!
     private var pickerViewDataSource: FilterPickerViewDataSource!
     private var pickerViewDelegate: FilterPickerViewDelegate!
-    private var collectionViewDataSource: CollectionViewDataSource!
-    private var collectionViewDelegate: CollectionViewDelegate!
+    private var collectionViewDataSource: MainScreenCollectionViewDataSource!
+    private var collectionViewDelegate: MainScreenCollectionViewDelegate!
     
     private var keyboardIsShown = false
     private var brandPickerView = UIPickerView()
@@ -79,24 +79,13 @@ final class MainScreenVC: UIViewController {
         super.viewDidLoad()
         presenter = MainScreenPresenter(view: self)
         
-        pickerViewDataSource = FilterPickerViewDataSource()
-        pickerViewDelegate = FilterPickerViewDelegate(withDelegate: self)
-        
-        collectionViewDataSource = CollectionViewDataSource(with: presenter, and: self)
-        collectionViewDelegate = CollectionViewDelegate(with: presenter, and: self)
-        
-        searchBar.searchTextField.backgroundColor = .white
-        searchBar.delegate = self
-        
         bottomBarView.layer.cornerRadius = 30
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShown), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
         setupCollectionViews()
         presenter.viewDidLoad()
         setupPickerViews()
         setupTextFields()
+        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -197,6 +186,9 @@ extension MainScreenVC: MainScreenVCDelegateProtocol {
 
 extension MainScreenVC {
     private func setupCollectionViews() {
+        collectionViewDataSource = MainScreenCollectionViewDataSource(with: presenter, and: self)
+        collectionViewDelegate = MainScreenCollectionViewDelegate(with: presenter, and: self)
+        
         categoryCollectionView.dataSource = collectionViewDataSource
         categoryCollectionView.delegate = collectionViewDelegate
         categoryCollectionView.allowsSelection = true
@@ -261,6 +253,12 @@ extension MainScreenVC {
     }
     
     private func setupPickerViews() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShown), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        pickerViewDataSource = FilterPickerViewDataSource()
+        pickerViewDelegate = FilterPickerViewDelegate(withDelegate: self)
+        
         brandPickerView.tag = 0
         brandPickerView.dataSource = pickerViewDataSource
         brandPickerView.delegate = pickerViewDelegate
@@ -301,6 +299,11 @@ extension MainScreenVC {
         filterBrandTextField.rightViewMode = .always
         filterSizeTextField.rightViewMode = .always
         filterPriceTextField.rightViewMode = .always
+    }
+    
+    private func setupSearchBar() {
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.delegate = self
     }
 }
 

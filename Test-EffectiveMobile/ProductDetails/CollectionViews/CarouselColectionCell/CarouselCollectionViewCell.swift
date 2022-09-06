@@ -7,8 +7,7 @@
 
 import UIKit
 
-class CarouselCollectionViewCell: UICollectionViewCell {
-    
+final class CarouselCollectionViewCell: UICollectionViewCell {
     var viewModel: CarouselCollectionViewCellModelProtocol! {
         didSet {
             updateCell()
