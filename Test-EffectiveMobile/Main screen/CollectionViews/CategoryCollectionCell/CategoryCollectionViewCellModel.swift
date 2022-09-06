@@ -13,7 +13,7 @@ protocol CategoryCollectionViewModelProtocol: AnyObject {
     var isSelected: Bool { get set }
 }
 
-class CategoryCollectionViewModel: CategoryCollectionViewModelProtocol {
+final class CategoryCollectionViewModel: CategoryCollectionViewModelProtocol {
     var image: String {
         name.lowercased()
     }

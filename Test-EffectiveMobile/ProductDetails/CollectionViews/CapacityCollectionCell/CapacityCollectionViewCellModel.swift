@@ -11,7 +11,7 @@ protocol CapacityCollectionViewCellModelProtocol: AnyObject {
     var title: String { get }
 }
 
-class CapacityCollectionViewCellModel: CapacityCollectionViewCellModelProtocol {
+final class CapacityCollectionViewCellModel: CapacityCollectionViewCellModelProtocol {
     var title: String
     
     init(capacity: String) {

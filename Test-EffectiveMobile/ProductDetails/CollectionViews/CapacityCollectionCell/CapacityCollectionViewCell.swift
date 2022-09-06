@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CapacityCollectionViewCell: UICollectionViewCell {
+final class CapacityCollectionViewCell: UICollectionViewCell {
     
     var viewModel: CapacityCollectionViewCellModelProtocol! {
         didSet {

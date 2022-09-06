@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ParamTabsCollectionViewCell: UICollectionViewCell {
+final class ParamTabsCollectionViewCell: UICollectionViewCell {
     var viewModel: ParamTabsCollectionViewCellModelProtocol! {
         didSet {
             updateCell()

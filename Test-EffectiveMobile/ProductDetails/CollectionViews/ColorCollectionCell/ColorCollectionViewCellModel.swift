@@ -11,7 +11,7 @@ protocol ColorCollectionViewCellModelProtocol: AnyObject {
     var color: String { get }
 }
 
-class ColorCollectionViewCellModel: ColorCollectionViewCellModelProtocol {
+final class ColorCollectionViewCellModel: ColorCollectionViewCellModelProtocol {
     var color: String
     
     init(color: String) {

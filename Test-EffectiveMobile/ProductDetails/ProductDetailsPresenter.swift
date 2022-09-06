@@ -13,7 +13,7 @@ protocol ProductDetailsPresenterProtocol: AnyObject {
     func tabsResponseForCell(at indexPath: IndexPath) -> String
 }
 
-class ProductDetailsPresenter: ProductDetailsPresenterProtocol {
+final class ProductDetailsPresenter: ProductDetailsPresenterProtocol {
     unowned let view: ProductDetailsVCProtocol
     
     private var productDetailsViewModel: ProductDetailsModel?

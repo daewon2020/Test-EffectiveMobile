@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ImageLoader {
+final class ImageLoader {
     static var shared = ImageLoader()
     
     private var cacheImages: NSCache<NSString, UIImage> = NSCache()

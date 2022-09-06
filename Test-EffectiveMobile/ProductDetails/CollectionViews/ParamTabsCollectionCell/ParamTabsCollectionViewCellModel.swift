@@ -11,7 +11,7 @@ protocol ParamTabsCollectionViewCellModelProtocol {
     var title: String { get }
 }
                                                 
-class ParamTabsCollectionViewCellModel: ParamTabsCollectionViewCellModelProtocol {
+final class ParamTabsCollectionViewCellModel: ParamTabsCollectionViewCellModelProtocol {
     var title: String
     
     init(title: String) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HotSalesCollectionViewCell: UICollectionViewCell {
+final class HotSalesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var isNewButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!

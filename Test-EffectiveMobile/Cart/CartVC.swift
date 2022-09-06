@@ -17,7 +17,7 @@ protocol CartVCProtocol: AnyObject {
     func deleteButtonTapped(at cell: UITableViewCell)
 }
 
-class CartVC: UIViewController {
+final class CartVC: UIViewController {
 
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var backgroundSheetView: UIView!

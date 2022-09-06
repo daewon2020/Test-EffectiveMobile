@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BestsellersCollectionViewCell: UICollectionViewCell {
+final class BestsellersCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!

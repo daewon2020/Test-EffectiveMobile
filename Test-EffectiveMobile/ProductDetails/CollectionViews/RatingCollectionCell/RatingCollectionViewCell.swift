@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RatingCollectionViewCell: UICollectionViewCell {
+final class RatingCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

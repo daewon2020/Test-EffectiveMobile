@@ -14,7 +14,7 @@ protocol CartPresenterProrocol {
     func deleteButtonTapped(at indexPath: IndexPath)
 }
 
-class CartPresenter: CartPresenterProrocol {
+final class CartPresenter: CartPresenterProrocol {
     
     unowned let view: CartVCProtocol!
     

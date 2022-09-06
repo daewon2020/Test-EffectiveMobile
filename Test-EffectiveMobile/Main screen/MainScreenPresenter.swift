@@ -73,7 +73,7 @@ final class MainScreenPresenter: MainScreenPresenterProtocol {
     }
 }
 
-// MainScreenPresenter private functions
+//MARK: - MainScreenPresenter private functions
 
 extension MainScreenPresenter {
     private func fetchCategoryData() {
@@ -91,6 +91,4 @@ extension MainScreenPresenter {
             self.view.productsDidRecieve()
         }
     }
-    
-
 }

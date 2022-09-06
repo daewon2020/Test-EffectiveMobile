@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FilterPickerViewDataSource: NSObject, UIPickerViewDataSource {
+final class FilterPickerViewDataSource: NSObject, UIPickerViewDataSource {
     private var barands: [String]
     private var prices: [String]
     private var sizes: [String]
