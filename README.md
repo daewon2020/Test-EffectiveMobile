@@ -13,7 +13,7 @@ Used native URLSession for networking
 <table>
 <tr>
     <td><img src="https://user-images.githubusercontent.com/56202186/188511797-ff1e1250-1352-46bb-bd29-65bbce17e2c2.png"></td>
-    <td><img src="https://user-images.githubusercontent.com/56202186/188709311-e03f39e5-13da-46c6-8c73-608009001e9f.png"></td>
-    <td><img src="https://user-images.githubusercontent.com/56202186/188709363-15c6faa4-2f8d-4235-93e1-4a46d8748815.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/56202186/188709757-f4b83dbe-fa19-43a9-a018-b548b5819e92.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/56202186/188709768-ca7dfc8b-fcf4-4711-ac45-54106b18fb6d.png"></td>
   </tr>
  </table>
